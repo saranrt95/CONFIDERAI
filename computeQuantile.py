@@ -1,7 +1,6 @@
 import pandas as pd 
 from math import ceil
 import numpy as np
-import matplotlib.pyplot as plt
 # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.quantile.html
 
 def computeCalibrationQuantile(scoredata, outputlabel, cls0label, cls1label, epsilon, approximate_quantile = False):

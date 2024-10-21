@@ -1,9 +1,7 @@
 import pandas as pd
 import numpy as np 
-from config_knn import *
+from config import *
 import math
-import sklearn
-from sklearn.preprocessing import MinMaxScaler
 from itertools import combinations
 
 def ComputeRelevances(rulesetfile):
