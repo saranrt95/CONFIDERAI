@@ -6,6 +6,10 @@ This repository contains code, data and rules to replicate the experiments carri
 
 It allows to perform conformal prediction for any rule-based model, by using an innovative score function that leverages both rule relevance, and a geometrical factor encoding the distances of points with respect to rule boundaries and the overlaps among rules. In this way, we can provide statistical guarantees to such interpretable models.
 
+[workflowCONFIDERAI.pdf](https://github.com/user-attachments/files/17486832/workflowCONFIDERAI.pdf)
+
+
+
 # Usage
 To execute the same tests of the paper, just download or clone the repository and run the following line in the command line:
 
