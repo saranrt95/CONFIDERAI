@@ -4,6 +4,8 @@ from config import *
 import math
 from itertools import combinations
 
+from RuleSatisfaction import *
+
 def ComputeRelevances(rulesetfile):
 	
 	""" For each rule of the ruleset, computes its relevance as covering*(1-error); 
@@ -139,8 +141,8 @@ def ComputeCONFIDERAI(X, parsedruleset, featurelabels,relevances,verifiedidx, ch
 	for row in range(len(X)):
 		X_row = X.iloc[row,:]
 		# indexes of verified rules for this row
-		verifiedrules = list(verifiedidx.iloc[row,:])
-		verifiedrules = [e for e in verifiedrules if not np.isnan(e)]
+		verifiedrules = verifiedidx[row]
+		#verifiedrules = [e for e in verifiedrules if not np.isnan(e)]
 		#print(verifiedrules)
 		# verified rule indexes for row
 		if verifiedrules ==[]: 
@@ -197,18 +199,19 @@ def ComputeCONFIDERAI(X, parsedruleset, featurelabels,relevances,verifiedidx, ch
 
 # MAIN function to compute the scores for the Logic Learning Machine model
 
-def ComputeLLMScores(calibrationsetfile,parsedruleset,relevances,outputlabel,featurelabels,changeclsidx,cls0label,cls1label,resultsfile,rulesimilarity,save_result=False):
+def ComputeScores(calibrationsetfile,rulesetfile, parsedruleset,relevances,outputlabel,featurelabels,changeclsidx,cls0label,cls1label,resultsfile,rulesimilarity,save_result=False):
 
 	data = pd.read_excel(calibrationsetfile)
 	predlabel="pred("+outputlabel+")"
 
 	# pick features, ground truth labels, predicted labels and index of the principal rule covered by the point from the dataset
-	X = data[featurelabels+[outputlabel,predlabel,"rule("+outputlabel+")"]]
+	X = data[featurelabels+[outputlabel,predlabel]]
 
 	# pick the indexes of the rules (of whatever class) satisfied by each sample in X
-	verifiedcolumnnames = [col for col in data.columns if 'rule-' in col]
+	#verifiedcolumnnames = [col for col in data.columns if 'rule-' in col]
 	#print(verifiedcolumnnames)
-	verifiedidx=data[verifiedcolumnnames]
+	#verifiedidx=data[verifiedcolumnnames]
+	verifiedidx = GetSatisfiedRulesIndexes(data, rulesetfile, outputlabel)
 	# get the CONFIDERAI scores for the LLM
 	scores0,scores1,tauvalues= ComputeCONFIDERAI(X, parsedruleset,featurelabels, relevances, verifiedidx,changeclsidx, rulesimilarity)
 	X = X.copy()

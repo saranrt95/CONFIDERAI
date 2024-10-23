@@ -35,7 +35,8 @@ rulesimilarity = GeometricRuleSimilarity(parsedruleset)
 
 t_start_calib = time.time()
 # compute scores on the calibration set
-score_calibration = ComputeLLMScores(calibrationsetfile,parsedruleset,relevances,outputlabel,featurelabels,changeclsidx,cls0label,cls1label,calibresfile,rulesimilarity,save_result=SAVE_RES_CALIB)
+#score_calibration = ComputeLLMScores(calibrationsetfile,parsedruleset,relevances,outputlabel,featurelabels,changeclsidx,cls0label,cls1label,calibresfile,rulesimilarity,save_result=SAVE_RES_CALIB)
+score_calibration = ComputeScores(calibrationsetfile,rulesetfile,parsedruleset,relevances,outputlabel,featurelabels,changeclsidx,cls0label,cls1label,calibresfile,rulesimilarity,save_result=SAVE_RES_CALIB)
 t_end_calib = time.time()
 t_calib = t_end_calib-t_start_calib
 print("Time for score computation on calibration set [s]: ", t_calib)
@@ -46,7 +47,7 @@ with open(RES_PATH+"time_scores_calib.csv","a") as of:
 	of.write(dataset+","+str(t_calib)+"\n")
 
 t_start_test = time.time()
-score_test = ComputeLLMScores(testsetfile,parsedruleset,relevances,outputlabel,featurelabels,changeclsidx,cls0label,cls1label,testscoresfile,rulesimilarity,save_result=SAVE_SCORES_TEST)
+score_test = ComputeScores(testsetfile,rulesetfile,parsedruleset,relevances,outputlabel,featurelabels,changeclsidx,cls0label,cls1label,testscoresfile,rulesimilarity,save_result=SAVE_SCORES_TEST)
 t_end_test = time.time()
 t_test = t_end_test-t_start_test
 
