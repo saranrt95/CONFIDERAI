@@ -1,0 +1,24 @@
+RULE 1: IF mqtt.msgid <= -0.605486 AND 0.252797 < mqtt.msgtype <= 6.218445 THEN output in 0, COVERING: 0.626855, ERROR: 0.013228
+RULE 2: IF -0.095066 < tcp.time_delta <= -0.095065 AND tcp.len <= -0.164920 THEN output in 0, COVERING: 0.279094, ERROR: 0.048929
+RULE 3: IF tcp.time_delta > -0.079097 THEN output in 0, COVERING: 0.267709, ERROR: 0.017475
+RULE 4: IF -0.095064 < tcp.time_delta <= -0.095058 AND tcp.len <= -0.167577 THEN output in 0, COVERING: 0.084393, ERROR: 0.047514
+RULE 5: IF -0.095058 < tcp.time_delta <= -0.095051 AND tcp.len <= 0.008353 THEN output in 0, COVERING: 0.007265, ERROR: 0.045965
+RULE 6: IF -0.095065 < tcp.time_delta <= -0.095064 AND tcp.len <= -0.156416 THEN output in 0, COVERING: 0.003898, ERROR: 0.010795
+RULE 7: IF -0.095066 < tcp.time_delta <= -0.095066 AND tcp.len <= -0.164920 THEN output in 0, COVERING: 0.000177, ERROR: 0.032030
+RULE 8: IF -0.095050 < tcp.time_delta <= -0.095049 THEN output in 0, COVERING: 0.000089, ERROR: 0.001239
+RULE 9: IF mqtt.msgid > -0.605486 THEN output in 1, COVERING: 0.563484, ERROR: 0.000000
+RULE 10: IF tcp.time_delta <= -0.095066 THEN output in 1, COVERING: 0.460980, ERROR: 0.049041
+RULE 11: IF tcp.len > -0.145254 THEN output in 1, COVERING: 0.439568, ERROR: 0.000000
+RULE 12: IF tcp.time_delta <= 0.091756 AND mqtt.len > -0.335510 THEN output in 1, COVERING: 0.364493, ERROR: 0.049971
+RULE 13: IF -0.504661 < mqtt.len <= -0.399948 THEN output in 1, COVERING: 0.250619, ERROR: 0.000886
+RULE 14: IF tcp.time_delta > -0.095059 AND mqtt.msgtype <= 0.252797 THEN output in 1, COVERING: 0.199257, ERROR: 0.006645
+RULE 15: IF -0.095066 < tcp.time_delta <= -0.095065 AND mqtt.msgtype <= 0.252797 THEN output in 1, COVERING: 0.027606, ERROR: 0.178620
+RULE 16: IF -0.095063 < tcp.time_delta <= -0.095059 THEN output in 1, COVERING: 0.017740, ERROR: 0.040402
+RULE 17: IF -0.095065 < tcp.time_delta <= -0.095065 AND mqtt.msgtype <= 0.252797 THEN output in 1, COVERING: 0.017696, ERROR: 0.051655
+RULE 18: IF -0.095065 < tcp.time_delta <= -0.095064 THEN output in 1, COVERING: 0.011856, ERROR: 0.043193
+RULE 19: IF -0.095064 < tcp.time_delta <= -0.095064 THEN output in 1, COVERING: 0.009821, ERROR: 0.014752
+RULE 20: IF -0.095064 < tcp.time_delta <= -0.095064 THEN output in 1, COVERING: 0.009069, ERROR: 0.024188
+RULE 21: IF -0.095064 < tcp.time_delta <= -0.095063 THEN output in 1, COVERING: 0.007034, ERROR: 0.020910
+RULE 22: IF -0.095063 < tcp.time_delta <= -0.095063 THEN output in 1, COVERING: 0.005353, ERROR: 0.018075
+RULE 23: IF -0.095063 < tcp.time_delta <= -0.095063 THEN output in 1, COVERING: 0.003893, ERROR: 0.017809
+RULE 24: IF 0.471043 < tcp.time_delta <= 12.922056 THEN output in 1, COVERING: 0.002477, ERROR: 0.000000
