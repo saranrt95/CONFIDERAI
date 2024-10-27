@@ -38,7 +38,7 @@ else:
 	SAVE_METRICS = True
 
 # main folder with datasets and rulesets
-DATA_PATH = "/Users/saranarteni/OneDrive - CNR/Conformal Predictors/Dataset20230619/"
+DATA_PATH = "data/"
 
 # path to folder for results
 RES_PATH = "results/"
