@@ -25,7 +25,6 @@ Then, run the following:
 - `<target_ccs (0|1)>`: target class for the conformal critical set definition.
 
 Notes for proper working of the code:
-1) Rulesets should be provided with the **same** syntax as those in our examples (see the _rules.csv files throughout the Dataset folder).
-2) Datasets, after model training, should have the following columns:
-  - pred(`'output'`), with `'output'` being the target label: the class predicted by the rule-based model for each point.
+1) Rulesets should be provided with the **same** syntax as those in our examples (see the _rules.csv files throughout the `data/` folder).
+2) Datasets file (calibration and test sets), after rule-based classifier training, should have a column named `pred(output)`, with `output` being the name of the target label, with the class labels predicted by the rule-based model for each point.
 
