@@ -49,10 +49,6 @@ def ComputeDistanceFromBorder(X_row,featurelabels,thisruleinfo):
 	gammavalues = []
 	# for each feature, compute point X_row distance from its lower and upper bounds
 	for f in featurelabels:
-		#if f in featuremissing:
-		#	gammalower = 10**40
-		#	gammaupper = 10**40
-		#else:
 		gammalower = abs(thisruleinfo[thisruleinfo["Feature"]==f]["Lower"].values[0]-X_row[f])
 		gammaupper = abs(thisruleinfo[thisruleinfo["Feature"]==f]["Upper"].values[0]-X_row[f])
 		gammavalues.append(gammalower)
@@ -85,9 +81,6 @@ def ComputeTau(X,X_row, clslabel,featurelabels, ruleinfo,rulesimilarity,verified
 		#tau = 1 / (1 + math.exp(-tau))
 		
 		#### begin correction based on rule similarity #####
-		#cls0idx = np.arange(0,changeclsidx-1)
-		#cls1idx = np.arange(changeclsidx-1, rulesimilarity.shape[0])
-
 		if r < changeclsidx:
 			# r is for class 0
 			indexes_except_r_cls0 = [i-1 for i in cls0idx if i!=r-1] 
@@ -104,12 +97,6 @@ def ComputeTau(X,X_row, clslabel,featurelabels, ruleinfo,rulesimilarity,verified
 		else:
 			avg_sim_1 = np.nanmean(rulesimilarity[r-1, indexes_except_r_cls1])
 	
-		'''
-		if np.isnan(avg_sim_0):
-			avg_sim_0 = 1
-		if np.isnan(avg_sim_1):
-			avg_sim_1 = 1
-		'''
 		if clslabel==cls0label:
 			sim_term = avg_sim_0/avg_sim_1
 		elif clslabel==cls1label:
@@ -123,9 +110,7 @@ def ComputeTau(X,X_row, clslabel,featurelabels, ruleinfo,rulesimilarity,verified
 
 		tau = 1 / (1 + math.exp(-tau))
 
-		#border = False
 		taulist.append(tau)
-		#isBorder.append(border)
 	return np.array(taulist)#, np.array(isBorder)
 
 
@@ -142,8 +127,6 @@ def ComputeCONFIDERAI(X, parsedruleset, featurelabels,relevances,verifiedidx, ch
 		X_row = X.iloc[row,:]
 		# indexes of verified rules for this row
 		verifiedrules = verifiedidx[row]
-		#verifiedrules = [e for e in verifiedrules if not np.isnan(e)]
-		#print(verifiedrules)
 		# verified rule indexes for row
 		if verifiedrules ==[]: 
 			#print("no verified")
@@ -154,14 +137,7 @@ def ComputeCONFIDERAI(X, parsedruleset, featurelabels,relevances,verifiedidx, ch
 			# separate the indexes of verified rules predicting class 0 and those predicting class 1; make indexes start from 0
 			satisfied_cls0 = [int(j-1) for j in verifiedrules if j < changeclsidx ]
 			satisfied_cls1 = [int(j-1) for j in verifiedrules if j >= changeclsidx ]
-			'''
-			if satisfied_cls0 == []: 
-				score0list.append(1)
-				continue
-			if satisfied_cls1 == []:
-				score1list.append(1)
-				continue
-			'''
+
 			# make indexes start from 1
 			satisfied_cls0r = [int(j) for j in verifiedrules if j < changeclsidx ]
 			satisfied_cls1r = [int(j) for j in verifiedrules if j >= changeclsidx ]
@@ -188,8 +164,7 @@ def ComputeCONFIDERAI(X, parsedruleset, featurelabels,relevances,verifiedidx, ch
 			else:
 				score_0 = np.prod(tau_cls0)
 				score_1 = np.prod(tau_cls1)
-			#print("score_0: ",score_0)
-			#print("score_1: ",score_1)
+
 			score0list.append(score_0)
 			score1list.append(score_1)
 
@@ -207,10 +182,6 @@ def ComputeScores(calibrationsetfile,rulesetfile, parsedruleset,relevances,outpu
 	# pick features, ground truth labels, predicted labels and index of the principal rule covered by the point from the dataset
 	X = data[featurelabels+[outputlabel,predlabel]]
 
-	# pick the indexes of the rules (of whatever class) satisfied by each sample in X
-	#verifiedcolumnnames = [col for col in data.columns if 'rule-' in col]
-	#print(verifiedcolumnnames)
-	#verifiedidx=data[verifiedcolumnnames]
 	verifiedidx = GetSatisfiedRulesIndexes(data, rulesetfile, outputlabel)
 	# get the CONFIDERAI scores for the LLM
 	scores0,scores1,tauvalues= ComputeCONFIDERAI(X, parsedruleset,featurelabels, relevances, verifiedidx,changeclsidx, rulesimilarity)

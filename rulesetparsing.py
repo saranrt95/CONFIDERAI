@@ -132,6 +132,12 @@ def fill_missing_features(datafile, ruleinfo, featurelabels, nfeatures):
 	for r in ruleid:
 		thisruleinfo = ruleinfo[ruleinfo["Rule ID"]==r]
 		thisruleinfo = thisruleinfo.drop(["Operator1","Operator2"],axis = 1, inplace = False)
+
+		# handle possible duplicated features
+
+		thisrule_drop = thisruleinfo.groupby("Feature").agg({"Output Class": "first", "Rule ID": "first", "Lower":"max", "Upper":"min"}).reset_index()
+		thisruleinfo = thisrule_drop[["Output Class", "Rule ID", "Lower", "Feature", "Upper"]]
+
 		clslabel = list(set(list(thisruleinfo["Output Class"].values)))[0]
 		#print("class: ", clslabel)
 		thisrule = thisruleinfo.copy()

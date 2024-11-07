@@ -104,6 +104,7 @@ def GeometricRuleSimilarity(parsedruleset, AREA = True):
 	if SAVE_RS_VALUES:
 		if not exists(RS_PATH):
 			os.mkdir(RS_PATH) 
+		rr = pd.read_csv(rulesetfile, names = ["Rule","Covering","Error"])
 		overlapMatrix = pd.DataFrame(matrix)
 		overlapMatrix.index = list(rr["Rule"].values)
 		overlapMatrix.columns = list(rr["Rule"].values)
