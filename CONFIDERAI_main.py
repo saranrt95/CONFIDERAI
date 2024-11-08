@@ -71,12 +71,24 @@ for epsilon in epsilonlist:
 	t_end_infer = time.time()
 	t_inference.append(t_end_infer - t_start_infer)
 	
-	#print("Time for inference [s]: ", t_infer_eps)
 	
 	sizeC = numLabels(results["PredictionRegion"])
 	results=results.copy()
 	results["Size"] = sizeC
+
+	# conformal critical set for label targetCCS
+	resultsCal = GetPredictionRegions(score_calibration,quantile_score,cls0label,cls1label)
+	sizeC_cal = numLabels(resultsCal["PredictionRegion"])
+	resultsCal=resultsCal.copy()
+	resultsCal["Size"] = sizeC_cal
+	conformalpoints = GetConformalPoints(resultsCal["PredictionRegion"], targetCSS)
+	resultsCal=resultsCal.copy()
+	resultsCal["ConformalPoint"] = conformalpoints
+	resultsCal = resultsCal.reset_index(drop=True)
+	if SAVE_FINAL_RES:
+		resultsCal.to_excel(RES_PATH+"/results_eps"+str(epsilon).replace(".","")+"_"+dataset+".xlsx",index = False)
 	
+	'''
 	conformalpoints = GetConformalPoints(results["PredictionRegion"], targetCSS)
 	results=results.copy()
 	results["ConformalPoint"] = conformalpoints
@@ -85,7 +97,7 @@ for epsilon in epsilonlist:
 
 	if SAVE_FINAL_RES:
 		results.to_excel(RES_PATH+"/results_eps"+str(epsilon).replace(".","")+"_"+dataset+".xlsx",index = False)
-
+	'''
 	# EVALUATION OF CP
 	avgErr,stdErr, errSingleClass0, stderr0, errSingleClass1, stderr1, avgC, stdC, avgEmpty, stdEmpty, avgSingle,stdSingle, avgSingle0,stdSingle0, avgSingle1,stdSingle1,avgDouble,stdDouble = EvaluateConformal(results,outputlabel,cls0label,cls1label)
 	print("average error: {}\naverage error for class {}: {}\naverage error for class {}: {}".format(avgErr,cls0label,errSingleClass0,cls1label,errSingleClass1))
