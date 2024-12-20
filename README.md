@@ -2,7 +2,7 @@
 Conformal prediction for binary rule-based classifiers.
 
 
-This repository contains code, data and rules to replicate the experiments carried out in the paper:  _Narteni, S., Carlevaro, A., Dabbene, F., Muselli, M., & Mongelli, M. (2023). CONFIDERAI: a novel CONFormal Interpretable-by-Design score function for Explainable and Reliable Artificial Intelligence. arXiv preprint arXiv:2309.01778._ 
+This repository contains code, data and rules to replicate the experiments carried out in the paper:  _Narteni, S., Carlevaro, A., Dabbene, F., Muselli, M., & Mongelli, M. (2024). "A novel score function for conformal prediction in rule-based binary classification", under review for Elsevier - Engineering Applications of Artificial Intelligence._ 
 
 It allows to perform conformal prediction for any rule-based model, by using an innovative score function that leverages both rule relevance, and a geometrical factor encoding the distances of points with respect to rule boundaries and the overlaps among rules. In this way, we can provide statistical guarantees to such interpretable models.
 
