@@ -18,16 +18,16 @@ if FIXED_EPSILON:
 	epsilonlist = [0.01,0.05,0.1,0.2]
 	#epsilonlist = [0.05]
 	# set to True to save results of LLM scores on calibration data to an excel file
-	SAVE_RES_CALIB = False
+	SAVE_RES_CALIB = True
 	# set to True to save results of LLM scores on test data to an excel file
 	SAVE_SCORES_TEST = False
-	# save final results, with prediction regions in an excel file and rule counts
+	# save final results, with prediction regions in an excel file
 	SAVE_FINAL_RES = True
 	# set to True to save a csv file with performance metrics
-	SAVE_METRICS = False#True
+	SAVE_METRICS = False
 else:
 	# set up a range of 1000 error levels between 0.05 and 0.5
-	epsilonlist = list(np.linspace(0.05,0.5,1000))
+	epsilonlist = list(np.linspace(0.05,0.5,100))
 	# set to True to save results of LLM scores on calibration data to an excel file
 	SAVE_RES_CALIB = False
 	# set to True to save results of LLM scores on test data to an excel file
@@ -40,14 +40,17 @@ else:
 # main folder with datasets and rulesets
 DATA_PATH = "data/"
 
+# whether to shuffle rows before computing scores
+SHUFFLE = False
+
 # path to folder for results
-RES_PATH = "results/"
+RES_PATH = "new_modified_score_20250521/"#"results_20250512_sigm_separate/"
 if not exists(RES_PATH):
 	os.mkdir(RES_PATH)
 
-#TAUFUNCTION = "sigmoid"
+# score computation settings
 CONSIDER_RELEVANCE = True # if rule relevance should be considered or not
-#TAUFUNCTION = "sigmoid"
+MAX_SCORE = 1
 
 # whether to save rule similarity tables or not
 SAVE_RS_VALUES = False
@@ -97,7 +100,7 @@ if dataset == "p2p":
 	#resfile = RES_PATH+"/DNSp2p_eps005_finalresults.xlsx"
 
 	if SAVE_METRICS:
-		metricsfile = RES_PATH+"/tablemetrics_p2p.csv"
+		metricsfile = RES_PATH+"/metrics_p2p.csv"
 
 		if not exists(metricsfile):
 			with open(metricsfile,'w') as mf:
@@ -148,7 +151,7 @@ if dataset == "ssh":
 	#resfile = RES_PATH+"/DNSp2p_eps005_finalresults.xlsx"
 
 	if SAVE_METRICS:
-		metricsfile = RES_PATH+"/tablemetrics_ssh.csv"
+		metricsfile = RES_PATH+"/metrics_ssh.csv"
 
 		if not exists(metricsfile):
 			with open(metricsfile,'w') as mf:
@@ -200,7 +203,7 @@ if dataset == "smoking":
 	#resfile = RES_PATH+"/DNSp2p_eps005_finalresults.xlsx"
 
 	if SAVE_METRICS:
-		metricsfile = RES_PATH+"/tablemetrics_smoking.csv"
+		metricsfile = RES_PATH+"/metrics_smoking.csv"
 
 		if not exists(metricsfile):
 			with open(metricsfile,'w') as mf:
@@ -250,7 +253,7 @@ if dataset == "cardio":
 	testscoresfile=RES_PATH+"/scores_eps005_test_cardio.xlsx"
 
 	if SAVE_METRICS:
-		metricsfile = RES_PATH+"/tablemetrics_cardio.csv"
+		metricsfile = RES_PATH+"/metrics_cardio.csv"
 
 		if not exists(metricsfile):
 			with open(metricsfile,'w') as mf:
@@ -299,7 +302,7 @@ if dataset == "telescope":
 	testscoresfile=RES_PATH+"/scores_eps005_test_telescope.xlsx"
 
 	if SAVE_METRICS:
-		metricsfile = RES_PATH+"/tablemetrics_telescope.csv"
+		metricsfile = RES_PATH+"/metrics_telescope.csv"
 
 		if not exists(metricsfile):
 			with open(metricsfile,'w') as mf:
@@ -350,7 +353,7 @@ if dataset == "platooning":
 	testscoresfile=RES_PATH+"/scores_eps005_test_platooning.xlsx"
 
 	if SAVE_METRICS:
-		metricsfile = RES_PATH+"/tablemetrics_platooning.csv"
+		metricsfile = RES_PATH+"/metrics_platooning.csv"
 
 		if not exists(metricsfile):
 			with open(metricsfile,'w') as mf:
@@ -399,7 +402,7 @@ if dataset == "mqttset":
 	testscoresfile=RES_PATH+"/scores_eps005_test_mqttset.xlsx"
 
 	if SAVE_METRICS:
-		metricsfile = RES_PATH+"/tablemetrics_mqttset.csv"
+		metricsfile = RES_PATH+"/metrics_mqttset.csv"
 
 		if not exists(metricsfile):
 			with open(metricsfile,'w') as mf:
@@ -449,7 +452,7 @@ if dataset == "rul":
 	testscoresfile=RES_PATH+"/scores_eps005_test_rul.xlsx"
 
 	if SAVE_METRICS:
-		metricsfile = RES_PATH+"/tablemetrics_rul.csv"
+		metricsfile = RES_PATH+"/metrics_rul.csv"
 
 		if not exists(metricsfile):
 			with open(metricsfile,'w') as mf:
@@ -499,7 +502,7 @@ if dataset == "eeg":
 	testscoresfile=RES_PATH+"/scores_eps005_test_eeg.xlsx"
 
 	if SAVE_METRICS:
-		metricsfile = RES_PATH+"/tablemetrics_eeg.csv"
+		metricsfile = RES_PATH+"/metrics_eeg.csv"
 
 		if not exists(metricsfile):
 			with open(metricsfile,'a') as mf:
@@ -548,7 +551,7 @@ if dataset == "fire":
 	testscoresfile=RES_PATH+"/scores_eps005_test_fire.xlsx"
 
 	if SAVE_METRICS:
-		metricsfile = RES_PATH+"/tablemetrics_fire.csv"
+		metricsfile = RES_PATH+"/metrics_fire.csv"
 
 		if not exists(metricsfile):
 			with open(metricsfile,'w') as mf:

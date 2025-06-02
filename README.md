@@ -2,7 +2,7 @@
 Conformal prediction for binary rule-based classifiers.
 
 
-This repository contains code, data and rules to replicate the experiments carried out in the paper:  _Narteni, S., Carlevaro, A., Dabbene, F., Muselli, M., & Mongelli, M. (2024). "A novel score function for conformal prediction in rule-based binary classification", submitted to Elsevier - Pattern Recognition._ 
+This repository contains code, data and rules to replicate the experiments carried out in the paper:  _Narteni, S., Carlevaro, A., Dabbene, F., Muselli, M., & Mongelli, M. (2024). "A novel score function for conformal prediction in rule-based binary classification", under review in Elsevier - Pattern Recognition._ 
 
 It allows to perform conformal prediction for any rule-based model, by using an innovative score function that leverages both rule relevance, and a geometrical factor encoding the distances of points with respect to rule boundaries and the overlaps among rules. In this way, we can provide statistical guarantees to such interpretable models.
 
